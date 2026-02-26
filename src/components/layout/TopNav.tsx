@@ -3,6 +3,7 @@
 import Link from "next/link";
   import Image from "next/image";
 import { IoMdMenu } from "react-icons/io";
+import { MdOutlineNotificationsNone } from "react-icons/md";
 export default function Topbar() { 
   return (
   <div className="topbar">
@@ -18,7 +19,7 @@ export default function Topbar() {
           aria-haspopup="false"
           aria-expanded="false"
         >
-          <i className="ti ti-bell" />
+          <span className="notificationIcon"><MdOutlineNotificationsNone /></span>
           <span className="alert-badge" />
         </a>
         <div className="dropdown-menu dropdown-menu-end dropdown-lg pt-0">
@@ -147,19 +148,21 @@ export default function Topbar() {
           aria-expanded="false"
         >
           <div className="d-flex align-items-center">
-            <Image
+           
+            <div className="top-rigtprofiles">
+               <span className="d-none d-md-block profileName">
+                Vivek <i className="mdi mdi-chevron-down" />
+              </span>
+              <span className="d-none d-md-block profileDesignation">Admin Department</span>
+             
+            </div>
+             <Image
               width={36}
               height={36}
               src="/assets/images/users/user-4.jpg"
               alt="profile-user"
-              className="rounded-circle me-2 thumb-sm"
+              className="rounded-circle me-2-left thumb-sm"
             />
-            <div>
-              <small className="d-none d-md-block font-11">Admin</small>
-              <span className="d-none d-md-block fw-semibold font-12">
-                Vivek Mishra <i className="mdi mdi-chevron-down" />
-              </span>
-            </div>
           </div>
         </a>
         <div className="dropdown-menu dropdown-menu-end">
@@ -185,16 +188,7 @@ export default function Topbar() {
       {/*end topbar-profile*/}
     </ul>
     {/*end topbar-nav*/}
-    <ul className="list-unstyled topbar-nav mb-0">
-      <li>
-        <button
-          className="nav-link button-menu-mobile nav-icon"
-          id="togglemenu"
-        >
-        <IoMdMenu />
-        </button>
-      </li>
-    </ul>
+
   </nav>
   {/* end navbar*/}
 </div>
