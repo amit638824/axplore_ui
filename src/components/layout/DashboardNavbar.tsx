@@ -3,8 +3,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { useUser } from "@/lib/contexts/UserContext";
-
+ 
 function getInitials(user: { firstName?: string; lastName?: string; email?: string }): string {
   const first = user.firstName?.trim().charAt(0) || "";
   const last = user.lastName?.trim().charAt(0) || "";
@@ -13,13 +12,7 @@ function getInitials(user: { firstName?: string; lastName?: string; email?: stri
 }
 
 export default function Topbar() {
-  const { user, loading } = useUser();
-
-  const displayName = user
-    ? `${user.firstName} ${user.lastName}`.trim() || user.email
-    : "User";
-
-  const roleName = user?.roles?.[0]?.roleName || "User";
+ 
   const handleToggleMenu = () => {
     // Mobile (<992px): open the off-canvas sidebar
     // Desktop: toggle the compact sidebar mode (template behavior)
@@ -131,21 +124,21 @@ export default function Topbar() {
                 style={{ width: 32, height: 32 }}
                 aria-hidden
               >
-                {loading ? "…" : user ? getInitials(user) : "U"}
+                {/* {loading ? "…" : user ? getInitials(user) : "U"} */}
               </div>
               <div className="d-none d-md-block text-start">
                 <div className="fw-semibold font-13 text-truncate" style={{ maxWidth: 140 }}>
-                  {loading ? "Loading…" : displayName}
+                  {/* {loading ? "Loading…" : displayName} */}
                 </div>
-                <small className="text-muted font-11 d-block">{loading ? "" : roleName}</small>
+                {/* <small className="text-muted font-11 d-block">{loading ? "" : roleName}</small> */}
               </div>
               <i className="ti ti-chevron-down font-14 ms-1 d-none d-md-inline-block opacity-75" aria-hidden />
             </a>
 
             <div className="dropdown-menu dropdown-menu-end py-2">
               <div className="px-3 py-2 d-md-none border-bottom">
-                <div className="fw-semibold font-13">{displayName}</div>
-                <small className="text-muted font-11">{roleName}</small>
+                {/* <div className="fw-semibold font-13">{displayName}</div>
+                <small className="text-muted font-11">{roleName}</small> */}
               </div>
               <Link className="dropdown-item d-flex align-items-center py-2" href="/profile">
                 <i className="ti ti-user font-16 me-2 flex-shrink-0" style={{ width: 20, textAlign: "center" }} aria-hidden />
