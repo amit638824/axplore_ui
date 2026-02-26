@@ -14,7 +14,7 @@ body{
 	content: "";
 	height: 100%;
 	width: 100%;
-	background: url("../images/word-map.jpg") no-repeat;
+	
 	position: absolute;
 	opacity: 0.3;
 	z-index: -1;
