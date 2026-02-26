@@ -7,6 +7,9 @@ import AuthLayout from "./AuthLayout";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { FiPhone } from "react-icons/fi";
+import { loginService } from "@/services/AuthServices";
+import { showAlert } from "@/utils/swalFire";
 
 type LoginType = "password" | "otp";
 type OtpStep = "enterPhone" | "enterOtp";
@@ -25,33 +28,33 @@ const getSchema = (loginType: LoginType, otpStep: OtpStep) =>
     email:
       loginType === "password"
         ? yup
-            .string()
-            .required("Email or Employee ID is required")
-            .min(3, "Minimum 3 characters required")
+          .string()
+          .required("Email or Employee ID is required")
+          .min(3, "Minimum 3 characters required")
         : yup.string().notRequired(),
 
     password:
       loginType === "password"
         ? yup
-            .string()
-            .required("Password is required")
-            .min(6, "Password must be at least 6 characters")
+          .string()
+          .required("Password is required")
+          .min(6, "Password must be at least 6 characters")
         : yup.string().notRequired(),
 
     phone:
       loginType === "otp"
         ? yup
-            .string()
-            .required("Phone number is required")
-            .matches(/^[0-9]{10}$/, "Enter valid 10 digit phone number")
+          .string()
+          .required("Phone number is required")
+          .matches(/^[0-9]{10}$/, "Enter valid 10 digit phone number")
         : yup.string().notRequired(),
 
     otp:
       loginType === "otp" && otpStep === "enterOtp"
         ? yup
-            .string()
-            .required("OTP is required")
-            .matches(/^[0-9]{4,6}$/, "Enter valid OTP")
+          .string()
+          .required("OTP is required")
+          .matches(/^[0-9]{4,6}$/, "Enter valid OTP")
         : yup.string().notRequired(),
   });
 
@@ -80,14 +83,20 @@ export default function LoginPage() {
       setSubmitting(true);
 
       if (loginType === "password") {
-        console.log("Password Login:", data);
-
-        // TODO: API call
-        await new Promise((res) => setTimeout(res, 1000));
-
-        toast.success("Login Successful");
+        try {
+          const res = await loginService(data); 
+          if (res.success) {
+            showAlert("success", "Login Successful");
+          } else {
+            showAlert("error", res.message || "Invalid email or password");
+          } 
+        } catch (err: any) {
+          showAlert(
+            "error",
+            err.response?.data?.message || "Invalid email or password"
+          );
+        }
       }
-
       if (loginType === "otp") {
         if (otpStep === "enterPhone") {
           console.log("Send OTP to:", data.phone);
@@ -139,7 +148,7 @@ export default function LoginPage() {
   return (
     <AuthLayout>
       <div className="login-header">
-        <img src="/images/logologin.png" alt="Company Logo" />
+        <img src="/images/loginpage.png" alt="Company Logo" />
         <h2>Welcome Back</h2>
         <p>Sign in to Axplore CRM</p>
       </div>
@@ -168,29 +177,36 @@ export default function LoginPage() {
         {/* ---------------- PASSWORD LOGIN ---------------- */}
         {loginType === "password" && (
           <>
-            <input
-              type="text"
-              placeholder="Email or Employee ID"
-              className="form-control"
-              {...register("email")}
-            />
+            <div className="form-controlbox">
+              <label htmlFor="Employee ID / Email / Mobile" className="form-label">Employee ID / Email / Mobile</label>
+              <input
+                type="text"
+                placeholder="username@gmail.com"
+                className="form-control"
+                {...register("email")}
+              />
+            </div>
             {errors.email && (
               <p className="error-text">{errors.email.message}</p>
             )}
-
-            <input
-              type="password"
-              placeholder="Password"
-              className="form-control"
-              {...register("password")}
-            />
+            <div className="form-controlbox">
+              <label htmlFor="Password" className="form-label">Password</label>
+              <input
+                type="password"
+                placeholder="Password"
+                className="form-control"
+                {...register("password")}
+              />
+              <div className="mb-3 form-check authpage">
+                <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                <label className="form-check-label" htmlFor="exampleCheck1">By Logging In, you’re agreeing to the Terms and Conditions.</label>
+              </div>
+            </div>
             {errors.password && (
               <p className="error-text">{errors.password.message}</p>
             )}
 
-            <div className="forgot">
-              <Link href="/forgot-password">Forgot password?</Link>
-            </div>
+
           </>
         )}
 
@@ -200,12 +216,15 @@ export default function LoginPage() {
             {/* STEP 1: Enter Phone */}
             {otpStep === "enterPhone" && (
               <>
-                <input
-                  type="tel"
-                  placeholder="Phone Number"
-                  className="form-control"
-                  {...register("phone")}
-                />
+                <div className="form-controlbox">
+                  <label htmlFor="Password" className="form-label">Email ID / Mobile</label>
+                  <input
+                    type="tel"
+                    placeholder="username@gmail.com"
+                    className="form-control"
+                    {...register("phone")}
+                  />
+                </div>
                 {errors.phone && (
                   <p className="error-text">{errors.phone.message}</p>
                 )}
@@ -250,9 +269,12 @@ export default function LoginPage() {
           {submitting
             ? "Please wait..."
             : loginType === "otp" && otpStep === "enterPhone"
-            ? "Get OTP"
-            : "Login →"}
+              ? <><FiPhone /> Get OTP </>
+              : "Login →"}
         </button>
+        <div className="forgot">
+          <Link href="/forgot-password">Forget password?</Link>
+        </div>
       </form>
     </AuthLayout>
   );

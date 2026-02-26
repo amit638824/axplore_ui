@@ -1,0 +1,201 @@
+/**
+ * Layout overrides - uses !important so these classes win over app.min.css / bootstrap
+ */
+
+/* Destination tab - same UI for Option 1 to Option n */
+.destination-tab-pane {
+  min-height: 0;
+}
+.destination-option-block {
+  padding: 14px 16px !important;
+  border-radius: 8px !important;
+  background: #fffde7 !important;
+  border: 1px solid #f5f0c6 !important;
+}
+.destination-option-block .destination-sequence-row,
+.destination-option-block .destination-sequence-row.destination-sequence-return,
+.destination-option-block .destination-sequence-row.destination-sequence-extended {
+  background: #fffde7 !important;
+  padding: 10px 0 14px !important;
+  border-radius: 6px !important;
+  border: none !important;
+}
+.destination-add-option-btn {
+  background: #0b51b7 !important;
+  border: none !important;
+  color: #fff !important;
+  font-weight: 500 !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+}
+.destination-add-option-btn:hover {
+  background: #094191 !important;
+  color: #fff !important;
+}
+/* Destination tab: sequence row - no border, flows as one option div */
+.destination-sequence-row {
+  background: transparent !important;
+  padding: 8px 0 12px !important;
+  border-radius: 0 !important;
+  border: none !important;
+}
+/* Plus (Add return) se add hue sequence ka background */
+.destination-sequence-row.destination-sequence-return {
+  background: #e3f2fd !important;
+  padding: 12px 14px !important;
+  border-radius: 8px !important;
+}
+/* Extended button se add hue sequence ka background */
+.destination-sequence-row.destination-sequence-extended {
+  background: #f3e5f5 !important;
+  padding: 12px 14px !important;
+  border-radius: 8px !important;
+}
+
+/* Destination tab: action icons dropdown */
+.destination-actions-menu.twoBtns.twolinePosition {
+  max-width: none !important;
+  min-width: 180px !important;
+  padding: 10px 12px !important;
+  justify-content: center !important;
+  gap: 10px !important;
+}
+
+/* Destination actions dropdown - panel UI */
+.dropdown-menu-lg.destination-actions-dropdown {
+  background: #f5f6f8 !important;
+  border: 1px solid #e8eaed !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  min-width: 200px !important;
+  padding: 14px 12px !important;
+}
+.destination-actions-menu {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 10px 10px !important;
+  align-items: center !important;
+  justify-items: center !important;
+  max-width: 160px !important;
+  margin: 0 auto !important;
+}
+.destination-actions-menu .destination-action-btn:nth-child(4) {
+  grid-column: 2 !important;
+}
+.destination-actions-menu .destination-action-btn:nth-child(5) {
+  grid-column: 3 !important;
+}
+.destination-action-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 10px !important;
+  font-size: 18px !important;
+  text-decoration: none !important;
+  transition: background 0.15s ease, transform 0.1s ease !important;
+}
+.destination-action-btn:hover {
+  transform: scale(1.05) !important;
+}
+.destination-action-btn.edit {
+  background: transparent !important;
+  border: 2px solid #5b9bd5 !important;
+  color: #2e5a8a !important;
+}
+.destination-action-btn.edit:hover {
+  background: rgba(91, 155, 213, 0.12) !important;
+  color: #2e5a8a !important;
+}
+.destination-action-btn.minus {
+  background: transparent !important;
+  border: 2px solid #e57373 !important;
+  color: #c62828 !important;
+}
+.destination-action-btn.minus:hover {
+  background: rgba(229, 115, 115, 0.12) !important;
+  color: #c62828 !important;
+}
+.destination-action-btn.services {
+  background: transparent !important;
+  border: 2px solid #64b5f6 !important;
+  color: #1565c0 !important;
+}
+.destination-action-btn.services:hover {
+  background: rgba(100, 181, 246, 0.12) !important;
+  color: #1565c0 !important;
+}
+.destination-action-btn.extendedTrip {
+  background: transparent !important;
+  border: 2px solid #9575cd !important;
+  color: #512da8 !important;
+}
+.destination-action-btn.extendedTrip:hover {
+  background: rgba(149, 117, 205, 0.12) !important;
+  color: #512da8 !important;
+}
+.destination-action-btn.plus {
+  background: transparent !important;
+  border: 2px solid #81c784 !important;
+  color: #2e7d32 !important;
+}
+.destination-action-btn.plus:hover {
+  background: rgba(129, 199, 132, 0.12) !important;
+  color: #2e7d32 !important;
+}
+
+.dropdown-menu-lg {
+  min-width: 200px !important;
+  padding: 12px !important;
+}
+
+/* Action icon buttons - colored squares */
+.cutomAddbtns.plus {
+  background: #15c641 !important;
+  border-radius: 6px !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  border: 1px solid #15c641 !important;
+}
+
+.cutomAddbtns.minus {
+  background: #dc3545 !important;
+  border-radius: 6px !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  border: 1px solid #dc3545 !important;
+}
+
+.cutomAddbtns.extendedTrip {
+  background: #402dc4 !important;
+  border-radius: 6px !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  border: 1px solid #402dc4 !important;
+}
+
+.cutomAddbtns.services {
+  background: #22b9e8 !important;
+  border-radius: 6px !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  border: 1px solid #22b9e8 !important;
+}
+
+.cutomAddbtns.edit {
+  background: #0765a3 !important;
+  border-radius: 6px !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  border: 1px solid #0765a3 !important;
+}
+
+.form-group.row.mb-2.twoBtns .cutomAddbtns {
+  display: flex !important;
+  width: 27px !important;
+  height: 27px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 12px !important;
+}

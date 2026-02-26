@@ -183,84 +183,123 @@ body{
 
 /* Glass Card */
 .auth-card {
-  width: 420px;
-  padding: 40px;
-  border-radius: 20px;
-  background: #5882C170;
-  backdrop-filter: blur(25px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-  color: #fff;
-  text-align: center;
+	-webkit-backdrop-filter: blur(6px);
+	backdrop-filter: blur(6px);
+	color: #fff;
+	text-align: center;
+	background: #5882c170;
+	border: 2px solid #ffffff87;
+	border-radius: 20px;
+	width: 484px;
+	padding: 40px;
+	box-shadow: 0 10px 40px #00000026;
+	min-height: 589px;
 }
 
 /* Header */
 .login-header img {
-  width: 150px;
-  margin-bottom: 15px;
+	width: 170px;
+	margin-bottom: 20px;
 }
 
 .login-header h2 {
-  font-weight: 600;
-  margin-bottom: 5px;
+	letter-spacing: .07px;
+	text-align: center;
+	font-family: Poppins;
+	font-size: 34px;
+	font-weight: 600;
+	line-height: 32px;
+	margin-bottom: 20px;
 }
-
 .login-header p {
-  font-size: 14px;
-  opacity: 0.8;
-  margin-bottom: 20px;
+	letter-spacing: -.31px;
+	text-align: center;
+	font-family: Inter;
+	font-size: 16px;
+	font-weight: 300;
+	line-height: 24px;
 }
 
 /* Toggle */
 .login-toggle {
-  display: flex;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  margin-bottom: 20px;
-  overflow: hidden;
+	background: #fff;
+	border-radius: 5px;
+	display: flex;
+	overflow: hidden;
+	max-width: 293px;
+	margin: auto;
+	margin-bottom: 25px;
+	padding: 5px;
 }
 
 .login-toggle button {
-  flex: 1;
-  padding: 8px;
-  border: none;
-  background: transparent;
-  color: white;
-  cursor: pointer;
-  font-weight: 500;
+	color: #6a7282;
+	cursor: pointer;
+	background: none;
+	border: none;
+	flex: 1;
+	padding: 5px 8px;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 20px;
 }
-
+.login-toggle button.active {
+	color: #fff;
+}
 .login-toggle .active {
-  background: #0d6efd;
-  border-radius: 8px;
+	background: #03375B;
+	border-radius: 5px;
 }
-
+.form-controlbox {
+	text-align: left;
+}
 /* Inputs */
+.form-controlbox label {
+	font-size: 13px;
+}
 .form-control {
-  width: 100%;
-  height: 45px;
-  border-radius: 8px;
-  border: none;
-  padding: 10px;
-  margin-bottom: 15px;
+	border: none;
+	border-radius: 5px;
+	width: 100%;
+	height: 40px;
+	margin-bottom: 15px;
+	padding: 10px;
+}
+.form-check.authpage .form-check-label {
+	font-size: 12px;
+}
+.form-check.authpage input {
+	height: 19px;
+	width: 19px;
+	background: #FFFFFF73;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	margin-right: 10px;
 }
 
 /* Forgot */
 .forgot {
-  text-align: right;
-  font-size: 13px;
-  margin-bottom: 15px;
+	text-align: center;
+	margin-top: 15px;
+	font-size: 13px;
+	color: #fff;
 }
+.forgot a {
+	color: #fff;
+}
+
 
 /* Button */
 .btn-login {
-  width: 100%;
-  height: 45px;
-  border-radius: 8px;
-  background: #0d6efd;
-  border: none;
-  color: white;
-  font-weight: 500;
-  cursor: pointer;
+	color: #fff;
+	cursor: pointer;
+	background: #0061A0;
+	border: none;
+	border-radius: 8px;
+	width: 100%;
+	height: 40px;
+	font-weight: 500;
+	font-size: 16px;
 }
 
 .btn-login:hover {

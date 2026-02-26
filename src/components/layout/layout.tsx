@@ -1,7 +1,7 @@
 import DashboardFooter from "./DashboardFooter";
-import DashboardNavbar from "./DashboardNavbar";
+import Topbar from "./TopNav"; 
 import Sidebar from "./Sidebar";
-
+import './layout.css';
 
 export default async function DashboardLayout({
   children,
@@ -11,14 +11,14 @@ export default async function DashboardLayout({
 
   return (<>
     <Sidebar />
-    <DashboardNavbar />
+    <Topbar/> 
     <div className="page-wrapper">
       <div className="page-content-tab">
         {children}
         <DashboardFooter />
       </div>
     </div>
-
+ 
 
   </>);
 }

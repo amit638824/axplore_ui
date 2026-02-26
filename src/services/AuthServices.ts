@@ -1,11 +1,12 @@
 import axiosInstance from "@/services/index"; 
 export const loginService = async (data: any) => {
-  const res = await axiosInstance.post("/api/auth/login", data);
+  const res = await axiosInstance.post("/api/auth/login", data); 
   return res.data;  
 };
 
 export const recruiterRegistrationService = async (data: any) => {
   const res = await axiosInstance.post("/auth/recruiter-register", data);
+
   return res.data;
 };
 
