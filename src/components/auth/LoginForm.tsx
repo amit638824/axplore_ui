@@ -8,8 +8,11 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FiPhone } from "react-icons/fi";
-import { loginService } from "@/services/AuthServices";
+import { loginService, verifyOtpService, sendOtpService } from "@/services/AuthServices";
 import { showAlert } from "@/utils/swalFire";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { login } from "@/redux/slice/authSlice";
 
 type LoginType = "password" | "otp";
 type OtpStep = "enterPhone" | "enterOtp";
@@ -65,6 +68,9 @@ export default function LoginPage() {
   const [otpStep, setOtpStep] = useState<OtpStep>("enterPhone");
   const [submitting, setSubmitting] = useState(false);
 
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -76,6 +82,29 @@ export default function LoginPage() {
     mode: "onSubmit",
   });
 
+  /* ------------------ Post-login handler ------------------ */
+
+  const handleLoginSuccess = (res: any) => {
+    const token = res?.data?.token;
+
+    // 1️⃣ Dispatch to Redux store (persisted via redux-persist)
+    dispatch(
+      login({
+        user: res.data?.user || {},
+        token: token,
+        permissions: res.data?.permissions || [],
+      })
+    );
+    // 2️⃣ Store token in localStorage (read by axios interceptor)
+    if (token) {
+      localStorage.setItem("token", token);
+    }
+    // 3️⃣ Reset form state
+    reset();
+    // 4️⃣ Redirect to dashboard
+    router.push("/dashboard");
+  };
+
   /* ------------------ Submit ------------------ */
 
   const onSubmit = async (data: LoginFormValues) => {
@@ -84,12 +113,13 @@ export default function LoginPage() {
 
       if (loginType === "password") {
         try {
-          const res = await loginService(data); 
+          const res = await loginService(data);
           if (res.success) {
             showAlert("success", "Login Successful");
+            handleLoginSuccess(res);
           } else {
             showAlert("error", res.message || "Invalid email or password");
-          } 
+          }
         } catch (err: any) {
           showAlert(
             "error",
@@ -97,22 +127,32 @@ export default function LoginPage() {
           );
         }
       }
+
       if (loginType === "otp") {
         if (otpStep === "enterPhone") {
-          console.log("Send OTP to:", data.phone);
-
-          // TODO: Send OTP API
-          await new Promise((res) => setTimeout(res, 1000));
-
-          toast.success("OTP Sent Successfully");
-          setOtpStep("enterOtp");
+          try {
+            const res = await sendOtpService({ phone: data.phone });
+            if (res.success) {
+              toast.success("OTP Sent Successfully");
+              setOtpStep("enterOtp");
+            } else {
+              toast.error(res.message || "Failed to send OTP");
+            }
+          } catch (err: any) {
+            toast.error(err.response?.data?.message || "Failed to send OTP");
+          }
         } else {
-          console.log("Verify OTP:", data);
-
-          // TODO: Verify OTP API
-          await new Promise((res) => setTimeout(res, 1000));
-
-          toast.success("Login Successful");
+          try {
+            const res = await verifyOtpService(data);
+            if (res.success) {
+              toast.success("Login Successful");
+              handleLoginSuccess(res);
+            } else {
+              toast.error(res.message || "Invalid OTP");
+            }
+          } catch (err: any) {
+            toast.error(err.response?.data?.message || "OTP verification failed");
+          }
         }
       }
     } catch (err: any) {
@@ -140,7 +180,16 @@ export default function LoginPage() {
       return;
     }
 
-    toast.success("OTP Resent");
+    try {
+      const res = await sendOtpService({ phone });
+      if (res.success) {
+        toast.success("OTP Resent Successfully");
+      } else {
+        toast.error(res.message || "Failed to resend OTP");
+      }
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || "Failed to resend OTP");
+    }
   };
 
   /* ------------------ UI ------------------ */
@@ -279,3 +328,6 @@ export default function LoginPage() {
     </AuthLayout>
   );
 }
+
+
+
