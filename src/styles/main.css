@@ -166,15 +166,14 @@ body{
 	/*  Login page */
 
 .auth-wrapper {
- background: url('/images/loginbg.jpg') no-repeat center center fixed; 
+ background: url('/images/login-background.png') no-repeat center center fixed; 
   height: 100vh;
   width: 100%;
+  background-size: cover;
 }
 
 /* Overlay */
 .auth-overlay {
-  backdrop-filter: blur(8px);
-  background: rgba(0, 0, 0, 0.4);
   height: 100%;
   display: flex;
   align-items: center;
@@ -187,7 +186,7 @@ body{
   width: 420px;
   padding: 40px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.15);
+  background: #5882C170;
   backdrop-filter: blur(25px);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
   color: #fff;
