@@ -9,12 +9,13 @@ import type {
 import toast from "react-hot-toast";
 import { redirectToLoginIfUnauthorized } from "@/lib/api/auth";
 import { updateDestination } from "@/lib/api/destination";
-import { useUser } from "@/lib/contexts/UserContext";
+ 
 import {
   getLeadDraft,
   getLastSavedLeadId,
   setLeadDraft,
 } from "@/lib/leads/leadDraftStorage";
+import { useUser } from "@/hooks/useSession";
 
 interface CountryOption {
   value: string;
