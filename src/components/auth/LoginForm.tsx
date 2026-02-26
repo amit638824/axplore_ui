@@ -7,6 +7,7 @@ import AuthLayout from "./AuthLayout";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { FiPhone } from "react-icons/fi";
 
 type LoginType = "password" | "otp";
 type OtpStep = "enterPhone" | "enterOtp";
@@ -139,7 +140,7 @@ export default function LoginPage() {
   return (
     <AuthLayout>
       <div className="login-header">
-        <img src="/images/logologin.png" alt="Company Logo" />
+        <img src="/images/loginpage.png" alt="Company Logo" />
         <h2>Welcome Back</h2>
         <p>Sign in to Axplore CRM</p>
       </div>
@@ -168,29 +169,36 @@ export default function LoginPage() {
         {/* ---------------- PASSWORD LOGIN ---------------- */}
         {loginType === "password" && (
           <>
+          <div className="form-controlbox">
+            <label for="Employee ID / Email / Mobile" class="form-label">Employee ID / Email / Mobile</label>
             <input
               type="text"
-              placeholder="Email or Employee ID"
+              placeholder="username@gmail.com"
               className="form-control"
               {...register("email")}
             />
+            </div>
             {errors.email && (
               <p className="error-text">{errors.email.message}</p>
             )}
-
+          <div className="form-controlbox">
+            <label for="Password" class="form-label">Password</label>
             <input
               type="password"
               placeholder="Password"
               className="form-control"
               {...register("password")}
             />
+            <div className="mb-3 form-check authpage">
+    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+    <label className="form-check-label" for="exampleCheck1">By Logging In, you’re agreeing to the Terms and Conditions.</label>
+  </div>
+          </div>
             {errors.password && (
               <p className="error-text">{errors.password.message}</p>
             )}
 
-            <div className="forgot">
-              <Link href="/forgot-password">Forgot password?</Link>
-            </div>
+            
           </>
         )}
 
@@ -200,12 +208,15 @@ export default function LoginPage() {
             {/* STEP 1: Enter Phone */}
             {otpStep === "enterPhone" && (
               <>
+              <div className="form-controlbox">
+                <label for="Password" class="form-label">Email ID / Mobile</label>
                 <input
                   type="tel"
-                  placeholder="Phone Number"
+                  placeholder="username@gmail.com"
                   className="form-control"
                   {...register("phone")}
                 />
+                </div>
                 {errors.phone && (
                   <p className="error-text">{errors.phone.message}</p>
                 )}
@@ -250,9 +261,12 @@ export default function LoginPage() {
           {submitting
             ? "Please wait..."
             : loginType === "otp" && otpStep === "enterPhone"
-            ? "Get OTP"
+            ?<><FiPhone/> Get OTP </>
             : "Login →"}
         </button>
+        <div className="forgot">
+              <Link href="/forgot-password">Reset password?</Link>
+            </div>
       </form>
     </AuthLayout>
   );
