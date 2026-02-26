@@ -87,7 +87,7 @@ export async function logout(): Promise<void> {
 
   if (!resp.ok) {
     // Even if API call fails, redirect to login
-    window.location.href = "/login";
+    window.location.href = "/";
     return;
   }
 
@@ -95,7 +95,7 @@ export async function logout(): Promise<void> {
   if (resp.redirected) {
     window.location.href = resp.url;
   } else {
-    window.location.href = "/login";
+    window.location.href = "/";
   }
 }
 

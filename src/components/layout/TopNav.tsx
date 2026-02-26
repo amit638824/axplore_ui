@@ -182,19 +182,9 @@ export default function Topbar() {
           </a>
         </div>
       </li>
-      {/*end topbar-profile*/}
+      
     </ul>
-    {/*end topbar-nav*/}
-    <ul className="list-unstyled topbar-nav mb-0">
-      <li>
-        <button
-          className="nav-link button-menu-mobile nav-icon"
-          id="togglemenu"
-        >
-        <IoMdMenu />
-        </button>
-      </li>
-    </ul>
+     
   </nav>
   {/* end navbar*/}
 </div>

@@ -8,11 +8,12 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FiPhone } from "react-icons/fi";
-import { loginService, verifyOtpService, sendOtpService } from "@/services/AuthServices";
+import { loginService, verifyOtpService, sendOtpService, userDetailService } from "@/services/AuthServices";
 import { showAlert } from "@/utils/swalFire";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { login } from "@/redux/slice/authSlice";
+import { setUserDetails } from "@/redux/slice/userDetailSlice";
 
 type LoginType = "password" | "otp";
 type OtpStep = "enterPhone" | "enterOtp";
@@ -84,10 +85,11 @@ export default function LoginPage() {
 
   /* ------------------ Post-login handler ------------------ */
 
-  const handleLoginSuccess = (res: any) => {
+  const handleLoginSuccess = async (res: any) => {
     const token = res?.data?.token;
+    const userId = res?.data?.userId || res?.data?.user?.id || null;
 
-    // 1️⃣ Dispatch to Redux store (persisted via redux-persist)
+    // 1️⃣ Dispatch auth data to Redux → authSlice (persisted via redux-persist)
     dispatch(
       login({
         user: res.data?.user || {},
@@ -95,13 +97,31 @@ export default function LoginPage() {
         permissions: res.data?.permissions || [],
       })
     );
+
     // 2️⃣ Store token in localStorage (read by axios interceptor)
     if (token) {
       localStorage.setItem("token", token);
     }
-    // 3️⃣ Reset form state
+
+    // 3️⃣ Store login response data immediately in userDetailSlice
+    dispatch(setUserDetails(res.data));
+
+    // 4️⃣ If userId present, fetch full user profile & overwrite in userDetailSlice
+    if (userId) {
+      try {
+        const userRes = await userDetailService(userId);
+        if (userRes?.success) {
+          dispatch(setUserDetails(userRes.data));
+        }
+      } catch {
+        // non-blocking — user is still logged in
+      }
+    }
+
+    // 5️⃣ Reset form state
     reset();
-    // 4️⃣ Redirect to dashboard
+
+    // 6️⃣ Redirect to dashboard
     router.push("/dashboard");
   };
 
@@ -131,7 +151,7 @@ export default function LoginPage() {
       if (loginType === "otp") {
         if (otpStep === "enterPhone") {
           try {
-            const res = await sendOtpService({ phone: data.phone });
+            const res = await sendOtpService({ phone: data.phone as any});
             if (res.success) {
               toast.success("OTP Sent Successfully");
               setOtpStep("enterOtp");
@@ -234,11 +254,11 @@ export default function LoginPage() {
                 className="form-control"
                 {...register("email")}
               />
-               {errors.email && (
-              <p className="error-text">{errors.email.message}</p>
-            )}
+              {errors.email && (
+                <p className="error-text">{errors.email.message}</p>
+              )}
             </div>
-           
+
             <div className="form-controlbox">
               <label htmlFor="Password" className="form-label">Password</label>
               <input
@@ -248,15 +268,15 @@ export default function LoginPage() {
                 {...register("password")}
               />
               {errors.password && (
-              <p className="error-text">{errors.password.message}</p>
-            )}
-              
+                <p className="error-text">{errors.password.message}</p>
+              )}
+
             </div>
             <div className="mb-3 form-check authpage">
-                <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                <label className="form-check-label" htmlFor="exampleCheck1">By Logging In, you’re agreeing to the Terms and Conditions.</label>
-              </div>
-            
+              <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+              <label className="form-check-label" htmlFor="exampleCheck1">By Logging In, you’re agreeing to the Terms and Conditions.</label>
+            </div>
+
 
 
           </>
@@ -277,10 +297,10 @@ export default function LoginPage() {
                     {...register("phone")}
                   />
                   {errors.phone && (
-                  <p className="error-text">{errors.phone.message}</p>
-                )}
+                    <p className="error-text">{errors.phone.message}</p>
+                  )}
                 </div>
-                
+
               </>
             )}
 

@@ -1,8 +1,14 @@
- "use client";
+"use client";
 
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import type { UserInfo } from "@/lib/types/user";
-import { logout } from "@/lib/api/auth";
+import { getMyProfileService } from "@/services/AuthServices";
+import { setUserDetails } from "@/redux/slice/userDetailSlice";
+
+// ─────────────────────────────────────────────
+// Types
+// ─────────────────────────────────────────────
 
 interface UserContextType {
   user: UserInfo | null;
@@ -13,8 +19,9 @@ interface UserContextType {
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-/** Interval (ms) to re-check session so expired token redirects to login */
-const SESSION_CHECK_INTERVAL_MS = 10 * 60 * 1000; // 10 minutes
+// ─────────────────────────────────────────────
+// Provider
+// ─────────────────────────────────────────────
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserInfo | null>(null);
@@ -22,56 +29,46 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const isMountedRef = useRef(true);
 
-  const fetchUserInfo = async (silent = false) => {
+  const dispatch = useDispatch();
+  const token = useSelector((state: any) => state.user?.token);
+
+  const fetchUserInfo = async () => {
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
     try {
-      if (!silent) {
-        setLoading(true);
-        setError(null);
-      }
+      setLoading(true);
+      setError(null);
 
-      const resp = await fetch("/api-next/auth/user_info", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      });
+      const res = await getMyProfileService(); // token auto-attached by axios interceptor
 
-      if (!resp.ok) {
-        await logout();
-        return;
-      }
-
-      const body = await resp.json();
-
-      // Handle response structure: { success: true, message: "...", data: {...} }
-      if (body.success && body.data) {
-        setUser(body.data);
-      } else if (body.data) {
-        setUser(body.data);
-      } else {
-        await logout();
-        return;
-      }
-    } catch (err) {
       if (!isMountedRef.current) return;
-      await logout();
+
+      if (res?.success && res?.data) {
+        setUser(res.data as UserInfo);
+        dispatch(setUserDetails(res.data)); // sync to Redux
+      } else {
+        setError("Failed to load user info");
+      }
+    } catch (err: any) {
+      if (!isMountedRef.current) return;
+      setError(err?.response?.data?.message || "Failed to load user info");
     } finally {
-      if (isMountedRef.current && !silent) setLoading(false);
+      if (isMountedRef.current) setLoading(false);
     }
   };
 
   useEffect(() => {
     isMountedRef.current = true;
-    fetchUserInfo(false);
-
-    const intervalId = setInterval(() => {
-      fetchUserInfo(true); // silent: only redirect on 401, no loading flash
-    }, SESSION_CHECK_INTERVAL_MS);
+    fetchUserInfo();
 
     return () => {
       isMountedRef.current = false;
-      clearInterval(intervalId);
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   return (
     <UserContext.Provider value={{ user, loading, error, refetch: fetchUserInfo }}>
@@ -79,6 +76,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     </UserContext.Provider>
   );
 }
+
+// ─────────────────────────────────────────────
+// Hook
+// ─────────────────────────────────────────────
 
 export function useUser() {
   const context = useContext(UserContext);

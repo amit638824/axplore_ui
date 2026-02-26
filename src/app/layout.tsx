@@ -13,6 +13,7 @@ import "font-awesome/css/font-awesome.min.css";
 
 import { Poppins, Inter } from "next/font/google";
 import BootstrapClient from "@/components/bootstrap/BootstrapClient";
+import { UserProvider } from "@/lib/contexts/UserContext";
 
 /* =========================
    Google Fonts Configuration
@@ -60,12 +61,14 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
+         <UserProvider>
         <BootstrapClient />
 
         <StoreProvider>
           {children}
           <ToastContainer />
         </StoreProvider>
+        </UserProvider>
       </body>
     </html>
   );
