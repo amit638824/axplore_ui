@@ -1,48 +1,10 @@
 // components/Sidebar.tsx
-"use client";
-
+"use client"; 
 import React, { useLayoutEffect, useState, useMemo } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation"; 
-import type { Menu } from "@/lib/types/user";
+import Link from "next/link"; 
+import { usePathname } from "next/navigation";  
 
-// Menu icon from API: response icon (e.g. "dashboard", "users") -> "la la-{icon}"
-const getMenuIcon = (icon: string | null, menuCode: string): string => {
-  if (icon && icon.trim()) {
-    return `${icon.trim()}`;
-  }
-  return "la la-menu";
-};
-
-// Generate a unique tab ID from menu code
-const getTabId = (menuCode: string, index: number): string => {
-  const tabIdMap: Record<string, string> = {
-    Dashboard: "dashboard-tab",
-    Lead: "apps-tab",
-    Invoice: "pages-tab",
-  };
-  return tabIdMap[menuCode] || `menu-tab-${index}`;
-};
-
-// Generate a unique pane ID from menu code
-const getPaneId = (menuCode: string, index: number): string => {
-  const paneIdMap: Record<string, string> = {
-    Dashboard: "MetricaDashboard",
-    Lead: "MetricaApps",
-    Invoice: "Invoices",
-  };
-  return paneIdMap[menuCode] || `MenuPane${index}`;
-};
-
-export default function Sidebar() {
-  const pathname = usePathname() ?? "";
-  // const { user, loading } = useUser();
-  const [isMounted, setIsMounted] = useState(false);
-  const [activePathname, setActivePathname] = useState("");
-
- 
-  
+export default function Sidebar() {  
   return (
     <div className="leftbar-tab-menu">
       {/* Left vertical icon menu */}

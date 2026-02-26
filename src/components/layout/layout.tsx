@@ -15,8 +15,6 @@ export default async function DashboardLayout({
     <div className="page-wrapper">
       <div className="page-content-tab">
         {children}
-
-        {/* Footer (matches template/index.html) */}
         <DashboardFooter />
       </div>
     </div>
