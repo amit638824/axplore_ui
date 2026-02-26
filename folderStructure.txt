@@ -1,0 +1,144 @@
+src/
+├─ app/
+│   ├─ login/
+│   │   └─ page.tsx
+│   │ 
+│   │                         
+│   │   
+│   │   ├─ recruiter/
+│   │   │   └─ page.tsx
+│   │   │ 
+│   │   ├─ superadmin/
+│   │   │   └─ page.tsx
+│   │   │
+│   │   ├─ finance-manager/
+│   │   │   └─ page.tsx
+│   │   │
+│   │   ├─ operations/
+│   │   │   └─ page.tsx
+│   │   │
+│   │   ├─ support/
+│   │   │   └─ page.tsx
+│   │   │
+│   │   └─ seeker/
+│   │       └─ page.tsx
+│   │
+│   └─ page.tsx                            # Landing page
+│
+├─ components/
+│   ├─ layout/
+│   │   ├─ DashboardLayout.tsx
+│   │   ├─ Sidebar.tsx
+│   │   └─ Topbar.tsx
+│   │
+│   ├─ ui/                                 # Reusable UI
+│   │   ├─ Button.tsx
+│   │   ├─ Input.tsx
+│   │   └─ Card.tsx
+│   │
+│   ├─ role-widgets/                       # Role-specific components
+│   │   ├─ recruiter/
+│   │   │   └─ RecruiterStatsCard.tsx
+│   │   ├─ superadmin/
+│   │   │   └─ UserManagementCard.tsx
+│   │   ├─ finance-manager/
+│   │   │   └─ InvoiceCard.tsx
+│   │   ├─ operations/
+│   │   │   └─ OperationTaskCard.tsx
+│   │   ├─ support/
+│   │   │   └─ SupportTicketCard.tsx
+│   │   └─ seeker/
+│   │       └─ SeekerJobCard.tsx
+│   │
+│   └─ shared/
+│       └─ EmptyState.tsx
+│
+├─ store/                                  # Redux Toolkit Store
+│   ├─ index.ts
+│   ├─ slices/
+│   │   ├─ authSlice.ts
+│   │   ├─ recruiterSlice.ts
+│   │   ├─ superAdminSlice.ts
+│   │   ├─ financeSlice.ts
+│   │   ├─ operationsSlice.ts
+│   │   └─ supportSlice.ts
+│   │
+│   └─ selectors/
+│       └─ authSelectors.ts
+│
+├─ hooks/
+│   ├─ useAuth.ts                           # check role, session
+│   ├─ useApi.ts                            # wrap fetch/axios
+│   └─ useDebounce.ts
+│
+├─ services/                                # API Clients
+│   ├─ http.ts                              # axios base instance
+│   ├─ authService.ts
+│   ├─  
+├─ middleware.ts                             # Role-based route guard
+│
+├─ context/
+│   └─ AuthProvider.tsx                      # If needed with redux or alone
+│
+├─ utils/
+│   ├─ constants.ts
+│   ├─ roles.ts
+│   └─ helpers.ts
+│
+└─ styles/
+    └─ globals.css
+
+
+--------------------------------------------------------------------------------------------
+
+
+
+SBSBACKEND
+│
+├─ src
+│  ├─ config
+│  │   ├─ db.config.ts            // DB connect config (TypeORM/DataSource)
+│  │   └─ env.config.ts           // Environment variables loader (dotenv)
+│  │
+│  ├─ constants
+│  │   └─ index.ts                // Reusable constants, roles, status codes, messages
+│  │
+│  ├─ entities                    // TypeORM Entities (Database Models)
+│  │   └─ User.ts
+│  │
+│  ├─ interfaces                  // DTO & Interface typing
+│  │   └─ user.interface.ts
+│  │
+│  ├─ middleware
+│  │   ├─ auth.middleware.ts      // JWT Auth Middleware
+│  │   ├─ validate.middleware.ts  // Joi/Zod validator middleware
+│  │   └─ error.middleware.ts     // Global Error Handler
+│  │
+│  ├─ services                    // Business logic layer
+│  │   └─ user.service.ts
+│  │
+│  ├─ controllers                 // Controller / Request Handlers
+│  │   └─ user.controller.ts
+│  │
+│  ├─ routes
+│  │   └─ user.routes.ts
+│  │
+│  ├─ utils
+│  │   ├─ logger.ts               // Winston / Pino logger config
+│  │   └─ response.ts             // Unified API Response handler
+│  │
+│  ├─ uploads                     // Multer file uploads folder (if needed)
+│  │
+│  ├─ docs                        // Swagger / API documentation folder
+│  │   └─ swagger.json
+│  │
+│  ├─ app.ts                      // Express app setup
+│  └─ server.ts                   // Start server file
+│
+├─ .env
+├─ .env.example                   // Public safe .env template
+├─ .gitignore
+├─ package.json
+├─ tsconfig.json
+├─ ecosystem.config.js            // PM2 config for deployment (optional)
+└─ README.md

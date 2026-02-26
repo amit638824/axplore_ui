@@ -1,0 +1,572 @@
+.card-body.bg-map {
+	position: relative;
+	z-index: 1;
+	/* height: 690px; */
+	background-image: linear-gradient(120deg, #fdfbfb 0%, #e8e8e8 100%);
+	padding: 15px 0;
+}
+.bg-map::before {
+	content: "";
+	height: 100%;
+	width: 100%;
+	background: url("../images/word-map.jpg") no-repeat;
+	position: absolute;
+	opacity: 0.3;
+	z-index: -1;
+	left: 0;
+	right: 0;
+	top: 0;
+	background-attachment: fixed;
+	background-size: cover;
+}
+.mx-width {
+	max-width: 132px;
+}
+.gap-20px {
+	gap: 20px;
+}
+.form-check-input:checked {
+	background-color: #fea400;
+	border-color: #fea400;
+}
+.gap-20px .form-check {
+	min-width: 98px;
+}
+.redastrick {
+	color: red;
+	margin-left: 3px;
+}
+.selectr-option.selected {
+	background-color: #b9c6d7;
+}
+.add-more-row {
+	text-align: right;
+}
+.add-more-row a {
+	color: #0b51b7;
+	text-decoration: underline;
+}
+.card-body.bg-map .tab-pane.active {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	gap: 12px;
+	height: auto;
+	min-height: 0;
+	overflow: visible;
+	padding: 0 15px;
+}
+.form-group.row.mb-2.twoBtns {
+	flex-direction: row;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+.form-group.row.mb-2.twoBtns .cutomAddbtns {
+	display: flex;
+	width: 27px;
+	height: 27px;
+	align-items: center;
+	justify-content: center;
+	padding: 12px !important;
+}
+.cutomAddbtns.plus {
+	background: #15c641 !important;
+	border-radius: 6px !important;
+	color: #fff !important;
+	font-size: 14px !important;
+	border: 1px solid #15c641 !important;
+}
+.cutomAddbtns.minus {
+	background: #dc3545 !important;
+	border-radius: 6px !important;
+	color: #fff !important;
+	font-size: 14px !important;
+	border: 1px solid #dc3545 !important;
+}
+.cutomAddbtns.extendedTrip {
+	background: #402dc4 !important;
+	border-radius: 6px !important;
+	color: #fff !important;
+	font-size: 14px !important;
+	border: 1px solid #402dc4 !important;
+}
+.cutomAddbtns.services {
+	background: #22b9e8 !important;
+	border-radius: 6px !important;
+	color: #fff !important;
+	font-size: 14px !important;
+	border: 1px solid #22b9e8 !important;
+}
+.cutomAddbtns.edit {
+	background: #0765a3 !important;
+	border-radius: 6px !important;
+	color: #fff !important;
+	font-size: 14px !important;
+	border: 1px solid #0765a3 !important;
+}
+/* Destination tab content - image: light grey + map already on .card-body.bg-map */
+.destination-tab-pane {
+	min-height: 0;
+}
+.destination-tab-content .destination-add-option-btn {
+	flex-shrink: 0;
+}
+/* Destination tab: same UI for Option 1 to Option n */
+.destination-option-block {
+	padding: 14px 16px !important;
+	border-radius: 8px !important;
+	background: #fffde7 !important;
+	border: 1px solid #f5f0c6 !important;
+}
+.destination-option-block .destination-sequence-row,
+.destination-option-block .destination-sequence-row.destination-sequence-return,
+.destination-option-block .destination-sequence-row.destination-sequence-extended {
+	background: #fffde7 !important;
+	padding: 10px 0 14px !important;
+	border-radius: 6px !important;
+	border: none !important;
+}
+/* Add Option button - solid blue, white text, rounded (image style) */
+.destination-add-option-btn {
+	background: #0b51b7 !important;
+	border: none !important;
+	color: #fff !important;
+	font-weight: 500 !important;
+	padding: 10px 20px !important;
+	border-radius: 8px !important;
+}
+.destination-add-option-btn:hover {
+	background: #094191 !important;
+	color: #fff !important;
+}
+/* Destination tab: bottom buttons (image - Previous left, Save & Next right) */
+.destination-tab-content .buttonBlock {
+	margin-top: 20px;
+	padding-top: 16px;
+	clear: both;
+}
+.destination-tab-content .buttonBlock .btn-primary {
+	background: #0b51b7 !important;
+	border-color: #0b51b7 !important;
+	border-radius: 8px;
+	padding: 10px 20px;
+}
+.destination-tab-content .buttonBlock .btn-secondary {
+	border-radius: 8px;
+	padding: 10px 20px;
+}
+/* Destination tab: sequence row - no border, flows as one option div */
+.destination-sequence-row {
+	background: transparent !important;
+	padding: 8px 0 12px !important;
+	border-radius: 0 !important;
+	border: none !important;
+}
+/* Plus (Add return) se add hue sequence ka background */
+.destination-sequence-row.destination-sequence-return {
+	background: #e3f2fd !important;
+	padding: 12px 14px !important;
+	border-radius: 8px !important;
+}
+/* Extended button se add hue sequence ka background */
+.destination-sequence-row.destination-sequence-extended {
+	background: #f3e5f5 !important;
+	padding: 12px 14px !important;
+	border-radius: 8px !important;
+}
+.twoBtns.flex-start{
+	align-items: flex-start;
+}
+.form-group.row.mb-2.twoBtns.twolinePosition {
+	height: 100%;
+	position: relative;
+	top: 0;
+	justify-content: flex-end;
+	padding-right: 0;
+	max-width: 120px;
+	flex-wrap: wrap;
+	text-align: right;
+	margin: auto;
+}
+/* Destination tab: show all 5 action icons in dropdown */
+.destination-actions-menu.twoBtns.twolinePosition {
+	max-width: none !important;
+	min-width: 180px !important;
+	padding: 10px 12px !important;
+	justify-content: center !important;
+	gap: 10px !important;
+}
+
+/* Destination actions dropdown - panel UI (light grey/white, rounded) */
+.dropdown-menu-lg.destination-actions-dropdown {
+	background: #f5f6f8 !important;
+	border: 1px solid #e8eaed !important;
+	border-radius: 12px !important;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+	min-width: 200px !important;
+	padding: 14px 12px !important;
+}
+.destination-actions-menu {
+	display: grid !important;
+	grid-template-columns: repeat(3, 1fr) !important;
+	gap: 10px 10px !important;
+	align-items: center !important;
+	justify-items: center !important;
+	max-width: 160px !important;
+	margin: 0 auto !important;
+}
+.destination-actions-menu .destination-action-btn:nth-child(4) {
+	grid-column: 2 !important;
+}
+.destination-actions-menu .destination-action-btn:nth-child(5) {
+	grid-column: 3 !important;
+}
+.destination-action-btn {
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: 40px !important;
+	height: 40px !important;
+	border-radius: 10px !important;
+	font-size: 18px !important;
+	text-decoration: none !important;
+	transition: background 0.15s ease, transform 0.1s ease !important;
+}
+.destination-action-btn:hover {
+	transform: scale(1.05) !important;
+}
+.destination-action-btn.edit {
+	background: transparent !important;
+	border: 2px solid #5b9bd5 !important;
+	color: #2e5a8a !important;
+}
+.destination-action-btn.edit:hover {
+	background: rgba(91, 155, 213, 0.12) !important;
+	color: #2e5a8a !important;
+}
+.destination-action-btn.minus {
+	background: transparent !important;
+	border: 2px solid #e57373 !important;
+	color: #c62828 !important;
+}
+.destination-action-btn.minus:hover {
+	background: rgba(229, 115, 115, 0.12) !important;
+	color: #c62828 !important;
+}
+.destination-action-btn.services {
+	background: transparent !important;
+	border: 2px solid #64b5f6 !important;
+	color: #1565c0 !important;
+}
+.destination-action-btn.services:hover {
+	background: rgba(100, 181, 246, 0.12) !important;
+	color: #1565c0 !important;
+}
+.destination-action-btn.extendedTrip {
+	background: transparent !important;
+	border: 2px solid #9575cd !important;
+	color: #512da8 !important;
+}
+.destination-action-btn.extendedTrip:hover {
+	background: rgba(149, 117, 205, 0.12) !important;
+	color: #512da8 !important;
+}
+.destination-action-btn.plus {
+	background: transparent !important;
+	border: 2px solid #81c784 !important;
+	color: #2e7d32 !important;
+}
+.destination-action-btn.plus:hover {
+	background: rgba(129, 199, 132, 0.12) !important;
+	color: #2e7d32 !important;
+}
+
+.dropdown-menu-lg {
+	min-width: 200px !important;
+	padding: 12px !important;
+}
+.form-group.row.mb-2.twoBtns.flex-start {
+	justify-content: flex-start;
+}
+.action_icons {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	width: 120px;
+	justify-content: flex-end;
+	align-items: flex-end;
+}
+.col-md-2.TravellersWidth {
+	width: 12%;
+}
+.col-md-2.ActionItemsBtn {
+	width: 20%;
+}
+.myCustomExtended.yellow {
+	background: #feffe3;
+	width: 100%;
+	padding-left: 3px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 15px;
+}
+.exportbtn .btn {
+	font-size: 16px;
+	width: 34px;
+	height: 34px;
+	display: inline-block;
+	margin-right: 10px;
+}
+.btn.btn-sm.btn-primary.csv {
+	background-color: #42AA55;
+	border-color: #42AA55;
+}
+.btn.btn-sm.btn-primary.pdf {
+	background-color: #c80000;
+	border-color: #c80000;
+}
+.exportbtn {
+	position: absolute;
+	top: 23px;
+	left: auto;
+	right: 15px;
+}
+
+/* Lead list: export buttons in card header (no overlap), table headers visible */
+.lead-list-export-buttons {
+	display: flex;
+	gap: 8px;
+	flex-shrink: 0;
+}
+.lead-list-export-buttons .btn.csv {
+	background-color: #42AA55;
+	border-color: #42AA55;
+}
+.lead-list-export-buttons .btn.pdf {
+	background-color: #c80000;
+	border-color: #c80000;
+}
+.lead-list-table-wrap {
+	overflow-x: auto;
+	overflow-y: visible;
+}
+.lead-list-table-wrap thead th {
+	white-space: nowrap;
+	vertical-align: middle;
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	border-bottom-width: 1px;
+}
+/* Simple DataTables wrapper: prevent header row clipping */
+.lead-list-table-wrap .dataTable-wrapper,
+.lead-list-table-wrap + .dataTable-wrapper {
+	min-height: 0;
+	overflow: visible;
+}
+.lead-list-table-wrap .dataTable-table thead th,
+.table-responsive .dataTable-table thead th {
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+}
+.lead-list-card .card-body {
+	overflow: visible;
+}
+.col-md-3.fromCity {
+	max-width: 176px;
+}
+.col-md-2.ActionItemsBtn,
+.col-md-1.ActionItemsBtn {
+	width: 48px;
+	display: flex;
+	align-items: center;
+	margin-top: 13px;
+}
+.ActionItemsBtn .dropdown-toggle.arrow-none {
+	background: #0b51b7;
+	color: #fff;
+	width: 34px;
+	height: 34px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+}
+
+/* -----------------------------
+   Dashboard UI fixes (Topbar)
+   ----------------------------- */
+/* Keep template-like topbar bottom border */
+.navbar-custom {
+	border-bottom: 1px solid #eceff5 !important;
+}
+
+/* Remove borders/outlines around avatar + dropdown button */
+.navbar-custom .nav-user,
+.navbar-custom .nav-user:focus,
+.navbar-custom .nav-user:active,
+.navbar-custom .nav-user:focus-visible {
+	outline: 0 !important;
+	box-shadow: none !important;
+	border: 0 !important;
+}
+
+.navbar-custom .nav-user img,
+.navbar-custom .nav-user .thumb-sm {
+	border: 0 !important;
+	box-shadow: none !important;
+}
+
+.navbar-custom .nav-link:focus,
+.navbar-custom .nav-link:active,
+.navbar-custom button:focus,
+.navbar-custom button:active,
+.navbar-custom button:focus-visible {
+	outline: 0 !important;
+	box-shadow: none !important;
+}
+
+/* -----------------------------
+   Dashboard page alignment (template match)
+   ----------------------------- */
+.leadStatusTExt span.thumb-lg {
+	font-size: 16px;
+}
+
+/* Make KPI row 5 cards in one line (20% each) */
+.kpiFiveBox .col-md-6.col-lg-3 {
+	width: auto;
+}
+@media (min-width: 1400px) {
+	.kpiFiveBox .col-md-6.col-lg-3 {
+		width: 20%;
+	}
+}
+
+/* Match template card heights so columns align */
+.activityList {
+	min-height: 311px;
+}
+
+.recentLeadsTable .card-body {
+	min-height: 514px;
+}
+
+/* -----------------------------
+   Responsive sidebar (mobile drawer)
+   ----------------------------- */
+@media (max-width: 991.98px) {
+	/* Content should use full width on mobile */
+	.navbar-custom {
+		margin-left: 0 !important;
+	}
+	.page-wrapper {
+		margin-left: 0 !important;
+	}
+
+	/* Hide sidebar off-canvas by default */
+	.leftbar-tab-menu {
+		position: fixed !important;
+		top: 0;
+		left: 0;
+		height: 100vh;
+		max-height: 100vh;
+		transform: translateX(-100%);
+		transition: transform 0.25s ease;
+		z-index: 1050;
+	}
+
+	/* Show sidebar when opened */
+	body.sidebar-open .leftbar-tab-menu {
+		transform: translateX(0) !important;
+	}
+
+	/* Backdrop */
+	body.sidebar-open::before {
+		content: "";
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.45);
+		z-index: 998;
+	}
+
+	body.sidebar-open {
+		overflow: hidden;
+	}
+}
+
+/* -----------------------------
+   Leads page responsiveness (match “80% zoom” feel on laptops)
+   ----------------------------- */
+@media (max-width: 1399.98px) {
+	/* Tabs: keep in one line with horizontal scroll instead of wrapping */
+	.card-body.bg-map .nav-tabs {
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		overflow-y: hidden;
+		white-space: nowrap;
+	}
+	.card-body.bg-map .nav-tabs::-webkit-scrollbar {
+		display: none;
+	}
+	.card-body.bg-map .nav-tabs {
+		scrollbar-width: none;
+	}
+
+	/* Slightly smaller tab links to fit better at 100% zoom */
+	.card-body.bg-map .nav-tabs .nav-link {
+		padding: 0.4rem 0.6rem;
+		font-size: 12px;
+	}
+
+	/* Remove narrow fixed widths that squeeze fields */
+	.col-md-2.TravellersWidth {
+		width: auto;
+	}
+	.col-md-3.fromCity {
+		max-width: none;
+	}
+	.action_icons {
+		width: auto;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+	}
+
+	/* Keep export buttons from overlapping content */
+	.exportbtn {
+		right: 15px;
+	}
+
+	/* Hub & Counts action buttons: keep +/edit/- in one line */
+	.hub-counts-actions {
+		/* Bootstrap .row adds padding to each direct child; remove it here */
+		--bs-gutter-x: 0;
+		--bs-gutter-y: 0;
+		justify-content: flex-end;
+		flex-wrap: nowrap;
+		gap: 8px;
+	}
+
+	.hub-counts-actions > * {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+}
+
+@media (max-width: 575.98px) {
+	/* On very small screens allow actions to wrap nicely */
+	.hub-counts-actions {
+		justify-content: flex-start;
+		flex-wrap: wrap;
+	}
+}
+
+@media (min-width: 1600px) {
+	/* Only on very wide screens, keep the original offset */
+	.exportbtn {
+		right: 215px;
+	}
+}
