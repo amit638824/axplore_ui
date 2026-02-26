@@ -234,10 +234,11 @@ export default function LoginPage() {
                 className="form-control"
                 {...register("email")}
               />
-            </div>
-            {errors.email && (
+               {errors.email && (
               <p className="error-text">{errors.email.message}</p>
             )}
+            </div>
+           
             <div className="form-controlbox">
               <label htmlFor="Password" className="form-label">Password</label>
               <input
@@ -246,14 +247,16 @@ export default function LoginPage() {
                 className="form-control"
                 {...register("password")}
               />
-              <div className="mb-3 form-check authpage">
+              {errors.password && (
+              <p className="error-text">{errors.password.message}</p>
+            )}
+              
+            </div>
+            <div className="mb-3 form-check authpage">
                 <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                 <label className="form-check-label" htmlFor="exampleCheck1">By Logging In, you’re agreeing to the Terms and Conditions.</label>
               </div>
-            </div>
-            {errors.password && (
-              <p className="error-text">{errors.password.message}</p>
-            )}
+            
 
 
           </>
@@ -273,10 +276,11 @@ export default function LoginPage() {
                     className="form-control"
                     {...register("phone")}
                   />
-                </div>
-                {errors.phone && (
+                  {errors.phone && (
                   <p className="error-text">{errors.phone.message}</p>
                 )}
+                </div>
+                
               </>
             )}
 

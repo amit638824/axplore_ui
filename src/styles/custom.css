@@ -3,6 +3,231 @@ body{
   font-weight: 400;
   font-style: normal;
 }
+.auth-wrapper {
+ background: url('/images/login-background.png') no-repeat center center fixed; 
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+}
+
+/* Overlay */
+.auth-overlay {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.error-text {
+	font-family: Poppins, sans-serif;
+	font-size: 13px;
+	color: #ff0404;
+}
+
+/* Glass Card */
+.auth-card {
+	-webkit-backdrop-filter: blur(6px);
+	backdrop-filter: blur(6px);
+	color: #fff;
+	text-align: center;
+	background: #5882c170;
+	border: 2px solid #ffffff87;
+	border-radius: 20px;
+	width: 484px;
+	padding: 40px;
+	box-shadow: 0 10px 40px #00000026;
+	min-height: 597px;
+}
+
+/* Header */
+.login-header img {
+	width: 170px;
+	margin-bottom: 20px;
+}
+
+.login-header h2 {
+	letter-spacing: .07px;
+	text-align: center;
+	font-family: Poppins;
+	font-size: 34px;
+	font-weight: 600;
+	line-height: 32px;
+	margin-bottom: 20px;
+	color: #fff;
+}
+.login-header p {
+	letter-spacing: -.31px;
+	text-align: center;
+	font-family: Inter;
+	font-size: 16px;
+	font-weight: 300;
+	line-height: 24px;
+}
+
+/* Toggle */
+.login-toggle {
+	background: #fff;
+	border-radius: 5px;
+	display: flex;
+	overflow: hidden;
+	max-width: 293px;
+	margin: auto;
+	margin-bottom: 25px;
+	padding: 5px;
+}
+
+.login-toggle button {
+	color: #6a7282;
+	cursor: pointer;
+	background: none;
+	border: none;
+	flex: 1;
+	padding: 5px 8px;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 20px;
+}
+.login-toggle button.active {
+	color: #fff;
+}
+.login-toggle .active {
+	background: #03375B;
+	border-radius: 5px;
+}
+.form-controlbox {
+	text-align: left;
+	margin-bottom: 15px;
+}
+/* Inputs */
+.form-controlbox label {
+	font-size: 13px;
+}
+.form-control {
+	border: none;
+	border-radius: 5px;
+	width: 100%;
+	height: 40px;
+	padding: 10px;
+}
+.form-check.authpage .form-check-label {
+	font-size: 12px;
+}
+.form-check.authpage input {
+	height: 19px;
+	width: 19px;
+	background: #FFFFFF73;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	margin-right: 10px;
+}
+
+/* Forgot */
+.forgot {
+	text-align: center;
+	margin-top: 15px;
+	font-size: 13px;
+	color: #fff;
+}
+.forgot a {
+	color: #fff;
+}
+
+
+/* Button */
+.btn-login {
+	color: #fff;
+	cursor: pointer;
+	background: #0061A0;
+	border: none;
+	border-radius: 8px;
+	width: 100%;
+	height: 40px;
+	font-weight: 500;
+	font-size: 16px;
+}
+
+.btn-login:hover {
+  background: #0b5ed7;
+}
+
+/* Powered */
+.powered {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-size: 14px;
+}
+/* forget password start*/
+.powered img {
+  height: 25px;
+}
+
+.success-box {
+  text-align: center;
+}
+
+.mail-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.success-box p {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+/* forget password end*/
+a{
+	text-decoration: none;
+}
+.formSection {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 10px;
+}
+.form-group.havepassword p {
+	text-align: right;
+	margin: 5px 0 0;
+}
+.form-group.havepassword p a {
+	color: #fff;
+	border-bottom: 1px solid #A5B8D5;
+	line-height: 15px;
+	text-decoration: none;
+}
+.topheader h3 {
+	text-transform: uppercase;
+	font-size: 16px;
+	font-weight: 600;
+	color: #fff;
+	margin: 0;
+	background: #00BB00;
+	padding: 15px 0;
+	height: 50px;
+	text-align: center;
+	font-family: Roboto;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 5px;
+}
+.topheader {
+	width: 240px;
+}
+.topheadcontent {
+	background: #000000c7;
+	color: #D1D1D1;
+	font-size: 13px;
+	text-align: center;
+	width: 230px;
+	margin: auto;
+	padding: 10px 5px;
+	font-weight: 400;
+	font-family: Roboto;
+}
 .card-body.bg-map {
 	position: relative;
 	z-index: 1;

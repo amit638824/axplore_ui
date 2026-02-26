@@ -3,6 +3,7 @@ import Topbar from "./TopNav";
 import Sidebar from "./Sidebar";
 import './layout.css';
 
+
 export default async function DashboardLayout({
   children,
 }: {
@@ -10,7 +11,7 @@ export default async function DashboardLayout({
 }) {
 
   return (<>
-    {/* <Sidebar />
+    <Sidebar />
     <Topbar/> 
     <div className="page-wrapper">
       <div className="page-content-tab">
@@ -18,9 +19,8 @@ export default async function DashboardLayout({
         <DashboardFooter />
       </div>
     </div>
-  */}
+ 
 
-  <h1>hi dashboard layout..........</h1>
 
   </>);
 }

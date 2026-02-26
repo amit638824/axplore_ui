@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 // import "./globals.css";
 import "bootstrap/dist/css/bootstrap.css";
-import "@/styles/main.css";
+
+import '@/styles/app.min.css';
 import "@/styles/custom.css";
 import "@/styles/responsive.css";
 
