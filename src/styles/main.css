@@ -163,7 +163,8 @@ body{
 	font-family: Roboto;
 } 
 	*/
-	/* Background */
+	/*  Login page */
+
 .auth-wrapper {
  background: url('/images/loginbg.jpg') no-repeat center center fixed; 
   height: 100vh;
@@ -278,10 +279,25 @@ body{
   color: white;
   font-size: 14px;
 }
-
+/* forget password start*/
 .powered img {
   height: 25px;
 }
+
+.success-box {
+  text-align: center;
+}
+
+.mail-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.success-box p {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+/* forget password end*/
 a{
 	text-decoration: none;
 }

@@ -2,29 +2,110 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import toast from "react-hot-toast"; 
+import toast from "react-hot-toast";
+import AuthLayout from "./AuthLayout";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+type LoginType = "password" | "otp";
+type OtpStep = "enterPhone" | "enterOtp";
+
+interface LoginFormValues {
+  email?: string;
+  password?: string;
+  phone?: string;
+  otp?: string;
+}
+
+/* ------------------ Validation Schema ------------------ */
+
+const getSchema = (loginType: LoginType, otpStep: OtpStep) =>
+  yup.object().shape({
+    email:
+      loginType === "password"
+        ? yup
+            .string()
+            .required("Email or Employee ID is required")
+            .min(3, "Minimum 3 characters required")
+        : yup.string().notRequired(),
+
+    password:
+      loginType === "password"
+        ? yup
+            .string()
+            .required("Password is required")
+            .min(6, "Password must be at least 6 characters")
+        : yup.string().notRequired(),
+
+    phone:
+      loginType === "otp"
+        ? yup
+            .string()
+            .required("Phone number is required")
+            .matches(/^[0-9]{10}$/, "Enter valid 10 digit phone number")
+        : yup.string().notRequired(),
+
+    otp:
+      loginType === "otp" && otpStep === "enterOtp"
+        ? yup
+            .string()
+            .required("OTP is required")
+            .matches(/^[0-9]{4,6}$/, "Enter valid OTP")
+        : yup.string().notRequired(),
+  });
+
+/* ------------------ Component ------------------ */
 
 export default function LoginPage() {
-  const [loginType, setLoginType] = useState<"password" | "otp">("password");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [otp, setOtp] = useState("");
+  const [loginType, setLoginType] = useState<LoginType>("password");
+  const [otpStep, setOtpStep] = useState<OtpStep>("enterPhone");
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    getValues,
+  } = useForm<LoginFormValues>({
+    resolver: yupResolver(getSchema(loginType, otpStep)) as any,
+    mode: "onSubmit",
+  });
 
+  /* ------------------ Submit ------------------ */
+
+  const onSubmit = async (data: LoginFormValues) => {
     try {
       setSubmitting(true);
 
       if (loginType === "password") {
-        console.log("Password Login:", { email, password });
-      } else {
-        console.log("OTP Login:", { phone, otp });
+        console.log("Password Login:", data);
+
+        // TODO: API call
+        await new Promise((res) => setTimeout(res, 1000));
+
+        toast.success("Login Successful");
       }
 
-      toast.success("Login Successful (Demo)");
+      if (loginType === "otp") {
+        if (otpStep === "enterPhone") {
+          console.log("Send OTP to:", data.phone);
+
+          // TODO: Send OTP API
+          await new Promise((res) => setTimeout(res, 1000));
+
+          toast.success("OTP Sent Successfully");
+          setOtpStep("enterOtp");
+        } else {
+          console.log("Verify OTP:", data);
+
+          // TODO: Verify OTP API
+          await new Promise((res) => setTimeout(res, 1000));
+
+          toast.success("Login Successful");
+        }
+      }
     } catch (err: any) {
       toast.error(err?.message || "Login failed");
     } finally {
@@ -32,100 +113,147 @@ export default function LoginPage() {
     }
   };
 
+  /* ------------------ Switch Login Type ------------------ */
+
+  const switchLoginType = (type: LoginType) => {
+    setLoginType(type);
+    setOtpStep("enterPhone");
+    reset();
+  };
+
+  /* ------------------ Resend OTP ------------------ */
+
+  const handleResendOtp = async () => {
+    const phone = getValues("phone");
+
+    if (!phone) {
+      toast.error("Enter phone number first");
+      return;
+    }
+
+    toast.success("OTP Resent");
+  };
+
+  /* ------------------ UI ------------------ */
+
   return (
-    <>
-
-
-      <div className="auth-wrapper">
-        <div className="auth-overlay">
-          <div className="auth-card">
-            <div className="login-header">
-              <img src="/images/logologin.png" alt="Company Logo" />
-              <h2>Welcome Back</h2>
-              <p>Sign in to Axplore CRM</p>
-            </div>
-
-            {/* Toggle */}
-            <div className="login-toggle">
-              <button
-                type="button"
-                className={loginType === "password" ? "active" : ""}
-                onClick={() => setLoginType("password")}
-              >
-                Password
-              </button>
-              <button
-                type="button"
-                className={loginType === "otp" ? "active" : ""}
-                onClick={() => setLoginType("otp")}
-              >
-                OTP
-              </button>
-            </div>
-
-            {/* Form */}
-            <form onSubmit={handleSubmit}>
-              {loginType === "password" && (
-                <>
-                  <input
-                    type="text"
-                    placeholder="Email or Employee ID"
-                    className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    className="form-control"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-
-                  <div className="forgot">
-                    <Link href="/forgot-password">Forgot password?</Link>
-                  </div>
-                </>
-              )}
-
-              {loginType === "otp" && (
-                <>
-                  <input
-                    type="tel"
-                    placeholder="Phone Number"
-                    className="form-control"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="Enter OTP"
-                    className="form-control"
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value)}
-                    required
-                  />
-                </>
-              )}
-
-              <button type="submit" className="btn-login" disabled={submitting}>
-                {submitting ? "Please wait..." : "Login →"}
-              </button>
-            </form>
-          </div>
-
-          <div className="powered">
-            <span>Powered by</span>
-            <img src="/images/ftrlogo.png" alt="Footer Logo" />
-          </div>
-        </div>
+    <AuthLayout>
+      <div className="login-header">
+        <img src="/images/logologin.png" alt="Company Logo" />
+        <h2>Welcome Back</h2>
+        <p>Sign in to Axplore CRM</p>
       </div>
 
-    </>
+      {/* Toggle */}
+      <div className="login-toggle">
+        <button
+          type="button"
+          className={loginType === "password" ? "active" : ""}
+          onClick={() => switchLoginType("password")}
+        >
+          Password
+        </button>
+
+        <button
+          type="button"
+          className={loginType === "otp" ? "active" : ""}
+          onClick={() => switchLoginType("otp")}
+        >
+          OTP
+        </button>
+      </div>
+
+      {/* Form */}
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        {/* ---------------- PASSWORD LOGIN ---------------- */}
+        {loginType === "password" && (
+          <>
+            <input
+              type="text"
+              placeholder="Email or Employee ID"
+              className="form-control"
+              {...register("email")}
+            />
+            {errors.email && (
+              <p className="error-text">{errors.email.message}</p>
+            )}
+
+            <input
+              type="password"
+              placeholder="Password"
+              className="form-control"
+              {...register("password")}
+            />
+            {errors.password && (
+              <p className="error-text">{errors.password.message}</p>
+            )}
+
+            <div className="forgot">
+              <Link href="/forgot-password">Forgot password?</Link>
+            </div>
+          </>
+        )}
+
+        {/* ---------------- OTP LOGIN ---------------- */}
+        {loginType === "otp" && (
+          <>
+            {/* STEP 1: Enter Phone */}
+            {otpStep === "enterPhone" && (
+              <>
+                <input
+                  type="tel"
+                  placeholder="Phone Number"
+                  className="form-control"
+                  {...register("phone")}
+                />
+                {errors.phone && (
+                  <p className="error-text">{errors.phone.message}</p>
+                )}
+              </>
+            )}
+
+            {/* STEP 2: Enter OTP */}
+            {otpStep === "enterOtp" && (
+              <>
+                <input
+                  type="tel"
+                  disabled
+                  className="form-control"
+                  {...register("phone")}
+                />
+
+                <input
+                  type="text"
+                  placeholder="Enter OTP"
+                  className="form-control"
+                  {...register("otp")}
+                />
+                {errors.otp && (
+                  <p className="error-text">{errors.otp.message}</p>
+                )}
+
+                <div className="forgot">
+                  <button
+                    type="button"
+                    onClick={handleResendOtp}
+                    className="resend-btn"
+                  >
+                    Resend OTP
+                  </button>
+                </div>
+              </>
+            )}
+          </>
+        )}
+
+        <button type="submit" className="btn-login" disabled={submitting}>
+          {submitting
+            ? "Please wait..."
+            : loginType === "otp" && otpStep === "enterPhone"
+            ? "Get OTP"
+            : "Login →"}
+        </button>
+      </form>
+    </AuthLayout>
   );
 }
