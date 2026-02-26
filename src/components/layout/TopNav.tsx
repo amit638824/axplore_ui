@@ -3,7 +3,19 @@
 import Link from "next/link";
   import Image from "next/image";
 import { IoMdMenu } from "react-icons/io";
+import { MdOutlineNotificationsNone } from "react-icons/md";
+import { useUser } from "@/lib/contexts/UserContext";
 export default function Topbar() { 
+   const { user }: any = useUser();
+
+  if (!user) return null;
+
+  const fullName = `${user.firstName || ""} ${user.lastName || ""}`;
+  const designation =
+    user?.designation?.designationName ||
+    user?.roles?.[0]?.roleName ||
+    "User";
+
   return (
   <div className="topbar">
   {/* Navbar */}
@@ -18,7 +30,7 @@ export default function Topbar() {
           aria-haspopup="false"
           aria-expanded="false"
         >
-          <i className="ti ti-bell" />
+          <span className="notificationIcon"><MdOutlineNotificationsNone /></span>
           <span className="alert-badge" />
         </a>
         <div className="dropdown-menu dropdown-menu-end dropdown-lg pt-0">
@@ -138,53 +150,60 @@ export default function Topbar() {
         </div>
       </li>
       <li className="dropdown">
-        <a
-          className="nav-link dropdown-toggle nav-user"
-          data-bs-toggle="dropdown"
-          href="#"
-          role="button"
-          aria-haspopup="false"
-          aria-expanded="false"
-        >
-          <div className="d-flex align-items-center">
-            <Image
-              width={36}
-              height={36}
-              src="/assets/images/users/user-4.jpg"
-              alt="profile-user"
-              className="rounded-circle me-2 thumb-sm"
-            />
-            <div>
-              <small className="d-none d-md-block font-11">Admin</small>
-              <span className="d-none d-md-block fw-semibold font-12">
-                Vivek Mishra <i className="mdi mdi-chevron-down" />
-              </span>
+            <a
+              className="nav-link dropdown-toggle nav-user"
+              data-bs-toggle="dropdown"
+              href="#"
+            >
+              <div className="d-flex align-items-center">
+                <div className="top-rigtprofiles">
+                  <span className="d-none d-md-block profileName">
+                    {fullName} <i className="mdi mdi-chevron-down" />
+                  </span>
+
+                  <span className="d-none d-md-block profileDesignation">
+                    {designation}
+                  </span>
+                </div>
+
+                <Image
+                  width={36}
+                  height={36}
+                  src="/assets/images/users/user-4.jpg"
+                  alt="profile-user"
+                  className="rounded-circle me-2-left thumb-sm"
+                />
+              </div>
+            </a>
+
+            <div className="dropdown-menu dropdown-menu-end">
+              <Link className="dropdown-item" href="/profile">
+                <i className="ti ti-user font-16 me-1 align-text-bottom" />
+                Profile
+              </Link>
+
+              <Link className="dropdown-item" href="#">
+                <i className="ti ti-settings font-16 me-1 align-text-bottom" />
+                Settings
+              </Link>
+
+              <Link className="dropdown-item" href="/change-password">
+                <i className="ti ti-lock font-16 me-1 align-text-bottom" />
+                Change Password
+              </Link>
+
+              <div className="dropdown-divider mb-0" />
+
+              <Link className="dropdown-item" href="#">
+                <i className="ti ti-power font-16 me-1 align-text-bottom" />
+                Logout
+              </Link>
             </div>
-          </div>
-        </a>
-        <div className="dropdown-menu dropdown-menu-end">
-          <a className="dropdown-item" href="profile.html">
-            <i className="ti ti-user font-16 me-1 align-text-bottom" />
-            Profile
-          </a>
-          <a className="dropdown-item" href="#">
-            <i className="ti ti-settings font-16 me-1 align-text-bottom" />
-            Settings
-          </a>
-          <a className="dropdown-item" href="change-password.html">
-            <i className="ti ti-lock font-16 me-1 align-text-bottom" />
-            Change Password
-          </a>
-          <div className="dropdown-divider mb-0" />
-          <a className="dropdown-item" href="#">
-            <i className="ti ti-power font-16 me-1 align-text-bottom" />
-            Logout
-          </a>
-        </div>
-      </li>
-      
+          </li>
+      {/*end topbar-profile*/}
     </ul>
-     
+    {/*end topbar-nav*/}
+
   </nav>
   {/* end navbar*/}
 </div>
@@ -192,3 +211,4 @@ export default function Topbar() {
   );
 }
 
+ 

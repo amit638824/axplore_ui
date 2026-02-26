@@ -1,14 +1,14 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import type { UserInfo } from "@/lib/types/user";
-import { getMyProfileService } from "@/services/AuthServices";
-import { setUserDetails } from "@/redux/slice/userDetailSlice";
-
-// ─────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────
+import { fetchUserDetails } from "@/services/AuthServices";
 
 interface UserContextType {
   user: UserInfo | null;
@@ -19,56 +19,62 @@ interface UserContextType {
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-// ─────────────────────────────────────────────
-// Provider
-// ─────────────────────────────────────────────
+const SESSION_CHECK_INTERVAL_MS = 10 * 60 * 1000;
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
   const isMountedRef = useRef(true);
 
-  const dispatch = useDispatch();
-  const token = useSelector((state: any) => state.user?.token);
-
-  const fetchUserInfo = async () => {
-    if (!token) {
-      setLoading(false);
-      return;
-    }
-
-    try {
+const fetchUserInfo = async (silent = false) => {
+  try {
+    if (!silent) {
       setLoading(true);
       setError(null);
-
-      const res = await getMyProfileService(); // token auto-attached by axios interceptor
-
-      if (!isMountedRef.current) return;
-
-      if (res?.success && res?.data) {
-        setUser(res.data as UserInfo);
-        dispatch(setUserDetails(res.data)); // sync to Redux
-      } else {
-        setError("Failed to load user info");
-      }
-    } catch (err: any) {
-      if (!isMountedRef.current) return;
-      setError(err?.response?.data?.message || "Failed to load user info");
-    } finally {
-      if (isMountedRef.current) setLoading(false);
     }
-  };
 
+    const data = await fetchUserDetails();
+
+    if (data?.success && data?.data) {
+      setUser(data.data);
+    } else if (data?.data) {
+      setUser(data.data);
+    } else {
+      setUser(null);
+    }
+
+  } catch (error: any) {
+
+    if (!isMountedRef.current) return;
+
+    // 401 = session expired
+    if (error.response?.status === 401) {
+      setUser(null);
+    } else {
+      setError("Something went wrong");
+    }
+
+  } finally {
+    if (isMountedRef.current && !silent) {
+      setLoading(false);
+    }
+  }
+};
   useEffect(() => {
     isMountedRef.current = true;
-    fetchUserInfo();
+    fetchUserInfo(false);
+
+    const intervalId = setInterval(() => {
+      fetchUserInfo(true);
+    }, SESSION_CHECK_INTERVAL_MS);
 
     return () => {
       isMountedRef.current = false;
+      clearInterval(intervalId);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, []);
 
   return (
     <UserContext.Provider value={{ user, loading, error, refetch: fetchUserInfo }}>
@@ -77,14 +83,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ─────────────────────────────────────────────
-// Hook
-// ─────────────────────────────────────────────
-
 export function useUser() {
   const context = useContext(UserContext);
-  if (context === undefined) {
-    throw new Error("useUser must be used within a UserProvider");
+  if (!context) {
+    throw new Error("useUser must be used within UserProvider");
   }
   return context;
 }

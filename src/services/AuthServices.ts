@@ -12,7 +12,10 @@ export const loginService = async (data: {
   const res = await axiosInstance.post("/api/auth/login", data);
   return res.data;
 };
-
+export const fetchUserDetails = async () => {
+  const res = await axiosInstance.get("/api/auth/user_info");
+  return res.data;
+};
 /** OTP — Step 1: Send OTP to phone */
 export const sendOtpService = async (data: { phone: string }) => {
   const res = await axiosInstance.post("/auth/send-otp", data);

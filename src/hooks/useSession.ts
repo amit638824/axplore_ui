@@ -10,7 +10,7 @@ export const useSession = () => {
     isLoggedIn: !!token,
   };
 };
-export const useUser = () => {
+export const userDetail = () => {
   const userDetail = useSelector(
     (state: any) => state.userDetail.userDetail
   );

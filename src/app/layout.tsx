@@ -10,7 +10,7 @@ import StoreProvider from "@/redux/StoreProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "font-awesome/css/font-awesome.min.css";
-
+import "line-awesome/dist/line-awesome/css/line-awesome.min.css";
 import { Poppins, Inter } from "next/font/google";
 import BootstrapClient from "@/components/bootstrap/BootstrapClient";
 import { UserProvider } from "@/lib/contexts/UserContext";
