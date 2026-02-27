@@ -8,9 +8,9 @@ import { useUser } from "@/lib/contexts/UserContext";
 export default function Topbar() {
   const { user }: any = useUser();
 
-  if (!user) return null;
+  // if (!user) return null;
 
-  const fullName = `${user.firstName || ""} ${user.lastName || ""}`;
+  const fullName = `${user?.firstName || ""} ${user?.lastName || ""}`;
   const designation =
     user?.designation?.designationName ||
     user?.roles?.[0]?.roleName ||

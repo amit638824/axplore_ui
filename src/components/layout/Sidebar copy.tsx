@@ -28,7 +28,7 @@ console.log(menu,user);
         </a>
       </div>
 
-      <div className="menu-body navbar-vertical tab-content menuitem-active">
+      <div className="menu-body navbar-vertical tab-content ">
         <div className="collapse navbar-collapse show" id="sidebarCollapse">
           <div className="menuandFooterimg">
             <ul className="navbar-nav">
@@ -36,8 +36,8 @@ console.log(menu,user);
               {menu
                 ?.sort((a: any, b: any) => a.displayOrder - b.displayOrder)
                 ?.map((item: any) => (
-                  <li key={item.menuId} className="nav-item">
-                    <Link href="#" className="nav-link menuitem-active">
+                  <li key={item.menuId} className="nav-item menuitem-active">
+                    <Link href="#" className="nav-link ">
                       <i className={item.icon}></i>
                       <span>{item.menuName}</span>
                     </Link>

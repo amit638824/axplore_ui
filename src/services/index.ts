@@ -1,13 +1,31 @@
 import axios from "axios";
+export const getBaseUrl = (): string => {
+  const mode = process.env.NEXT_PUBLIC_DEVELOPMENT_MODE?.toLowerCase();
 
-// Determine base URL based on environment
-const BASE_URL =
-  process.env.NEXT_PUBLIC_DEVELOPMENT_MODE =="test"
-    ? "http://localhost:4000"
-    : "https://axplore-dev.alphadroid.dev";
- 
-console.log(process.env.NEXT_PUBLIC_DEVELOPMENT_MODE,"Axios Base URL:", BASE_URL);
+  let baseUrl: any ;
 
+  if (mode === "test") {
+    baseUrl = process.env.NEXT_PUBLIC_API_URL_TEST;
+  } 
+  else if (mode === "staging") {
+    baseUrl = process.env.NEXT_PUBLIC_API_URL_STAGING;
+  } 
+  else if (mode === "prod") {
+    baseUrl = process.env.NEXT_PUBLIC_API_URL_PROD;
+  } 
+  else {
+    // Default fallback
+    baseUrl = process.env.NEXT_PUBLIC_API_URL_PROD;
+  }
+
+  if (!baseUrl) {
+    console.log("Base URL is not defined in environment variables.");
+  }  
+  console.log("Axios Base URL:", baseUrl);
+
+  return baseUrl;
+};
+const BASE_URL= getBaseUrl();
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
