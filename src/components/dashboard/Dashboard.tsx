@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import ApexChartsInitializer from './ApexChartsInitializer'
 import { FiPhone, FiCalendar, FiFacebook, FiInstagram, FiTwitter } from 'react-icons/fi';
 
@@ -15,7 +16,7 @@ const Dashboard = () => {
               <div className="float-end">
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
-                    <a href="#">Axplore</a>
+                    <Link href="#">Axplore</Link>
                   </li>
                   <li className="breadcrumb-item active">Dashboard</li>
                 </ol>
@@ -148,7 +149,7 @@ const Dashboard = () => {
                         <div className="d-flex justify-content-between align-items-center">
                           <p className="text-muted mb-0 font-13 w-75">
                             <span>Donald</span> updated the status of{" "}
-                            <a href="#">Refund #1234</a> to awaiting customer response
+                            <Link href="#">Refund #1234</Link> to awaiting customer response
                           </p>
                           <small className="text-muted">06:49</small>
                         </div>
@@ -163,7 +164,7 @@ const Dashboard = () => {
                         <div className="d-flex justify-content-between align-items-center">
                           <p className="text-muted mb-0 font-13 w-75">
                             <span>Lucy Peterson</span> was added to the group, group name is{" "}
-                            <a href="#">Overtake</a>
+                            <Link href="#">Overtake</Link>
                           </p>
                           <small className="text-muted">06:40</small>
                         </div>
@@ -182,7 +183,7 @@ const Dashboard = () => {
                         <div className="d-flex justify-content-between align-items-center">
                           <p className="text-muted mb-0 font-13 w-75">
                             <span>Joseph Rust</span> opened new showcase{" "}
-                            <a href="#">Mannat #112233</a> with theme market
+                            <Link href="#">Mannat #112233</Link> with theme market
                           </p>
                           <small className="text-muted">06:20</small>
                         </div>
@@ -197,7 +198,7 @@ const Dashboard = () => {
                         <div className="d-flex justify-content-between align-items-center">
                           <p className="text-muted mb-0 font-13 w-75">
                             <span>Donald</span> updated the status of{" "}
-                            <a href="#">Refund #1234</a> to awaiting customer response
+                            <Link href="#">Refund #1234</Link> to awaiting customer response
                           </p>
                           <small className="text-muted">05:45</small>
                         </div>

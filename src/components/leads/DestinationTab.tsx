@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import type {
   DestinationOption,
   DestinationSequence,
@@ -9,14 +10,14 @@ import type {
 import toast from "react-hot-toast";
 import { redirectToLoginIfUnauthorized } from "@/lib/api/auth";
 import { updateDestination } from "@/lib/api/destination";
- 
+
 import {
   getLeadDraft,
   getLastSavedLeadId,
   setLeadDraft,
 } from "@/lib/leads/leadDraftStorage";
-import { useUser } from "@/hooks/useSession";
-
+import { useUser } from "@/lib/contexts/UserContext";
+ 
 interface CountryOption {
   value: string;
   label: string;
@@ -241,13 +242,13 @@ export default function DestinationTab({ onOpenServicesModal }: DestinationTabPr
           const newSeq =
             type === "return"
               ? createEmptySequence(`seq-${Date.now()}`, "return", {
-                  fromCountry: prevSeq.toCountry,
-                  fromCity: prevSeq.toCity,
-                  toCountry: "",
-                  toCity: "",
-                  travelers: prevSeq.travelers,
-                  travelDate: prevSeq.travelDate,
-                })
+                fromCountry: prevSeq.toCountry,
+                fromCity: prevSeq.toCity,
+                toCountry: "",
+                toCity: "",
+                travelers: prevSeq.travelers,
+                travelDate: prevSeq.travelDate,
+              })
               : createEmptySequence(`seq-${Date.now()}`, "extended");
           const next = [...seqs];
           next.splice(afterSequenceIndex + 1, 0, newSeq);
@@ -452,15 +453,15 @@ export default function DestinationTab({ onOpenServicesModal }: DestinationTabPr
       const optionsForDraft =
         createdItems && createdItems.length > 0
           ? options.map((opt, optIndex) => ({
-              ...opt,
-              sequences: opt.sequences.map((seq, seqIndex) => {
-                const item = createdItems.find(
-                  (it) => it.optionNo === optIndex + 1 && it.sequenceNo === seqIndex + 1
-                );
-                const lid = item?.leadDestinationId ?? seq.leadDestinationId;
-                return lid ? { ...seq, leadDestinationId: lid } : seq;
-              }),
-            }))
+            ...opt,
+            sequences: opt.sequences.map((seq, seqIndex) => {
+              const item = createdItems.find(
+                (it) => it.optionNo === optIndex + 1 && it.sequenceNo === seqIndex + 1
+              );
+              const lid = item?.leadDestinationId ?? seq.leadDestinationId;
+              return lid ? { ...seq, leadDestinationId: lid } : seq;
+            }),
+          }))
           : options;
 
       const getCountryLabel = (id: string) =>
@@ -543,13 +544,12 @@ export default function DestinationTab({ onOpenServicesModal }: DestinationTabPr
               {opt.sequences.map((seq, seqIndex) => (
                 <div
                   key={seq.id}
-                  className={`destination-sequence-row ${
-                    seq.type === "return"
+                  className={`destination-sequence-row ${seq.type === "return"
                       ? "destination-sequence-return"
                       : seq.type === "extended"
                         ? "destination-sequence-extended"
                         : ""
-                  }`}
+                    }`}
                 >
                   <div className="row align-items-end">
                     <div className="col-md-2 fromCity">
@@ -672,7 +672,7 @@ export default function DestinationTab({ onOpenServicesModal }: DestinationTabPr
                     </div>
                     <div className="col-md-1 ActionItemsBtn flex-shrink-0">
                       <div className="dropdown d-inline-block">
-                        <a
+                        <Link
                           className="dropdown-toggle arrow-none"
                           href="#"
                           role="button"
@@ -681,10 +681,10 @@ export default function DestinationTab({ onOpenServicesModal }: DestinationTabPr
                           aria-expanded="false"
                         >
                           <i className="las la-ellipsis-v font-20" />
-                        </a>
+                        </Link>
                         <div className="dropdown-menu dropdown-menu-end dropdown-menu-lg destination-actions-dropdown">
                           <div className="destination-actions-menu">
-                          <button
+                            <button
                               type="button"
                               className="destination-action-btn plus border-0 bg-transparent p-0"
                               title="Add return"
@@ -695,9 +695,9 @@ export default function DestinationTab({ onOpenServicesModal }: DestinationTabPr
                             >
                               <i className="fa fa-plus" />
                             </button>
-                            <a href="#" title="Edit" className="destination-action-btn edit">
+                            <Link href="#" title="Edit" className="destination-action-btn edit">
                               <i className="fa fa-pen" />
-                            </a>
+                            </Link>
                             <button
                               type="button"
                               className="destination-action-btn minus border-0 bg-transparent p-0"
@@ -732,7 +732,7 @@ export default function DestinationTab({ onOpenServicesModal }: DestinationTabPr
                             >
                               <i className="fa fa-share-square" />
                             </button>
-                            
+
                           </div>
                         </div>
                       </div>
