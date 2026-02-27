@@ -1,9 +1,10 @@
 import React from 'react'
 import ApexChartsInitializer from './ApexChartsInitializer'
+import { FiPhone, FiCalendar, FiFacebook, FiInstagram, FiTwitter } from 'react-icons/fi';
 
 const Dashboard = () => {
   return (
-     <>
+    <>
       <ApexChartsInitializer />
 
       <div className="container-fluid">
@@ -38,10 +39,7 @@ const Dashboard = () => {
                 <div className="row mb-3">
                   <div className="col col-md">
                     <div className="media">
-                      <i
-                        data-feather="phone"
-                        className="align-self-center icon-lg text-secondary"
-                      ></i>
+                      <FiPhone className="align-self-center icon-lg text-secondary" />
                       <div className="media-body align-self-center ms-2">
                         <h6 className="mt-0 mb-1 font-16">
                           76% Deals Successfull{" "}
@@ -296,10 +294,7 @@ const Dashboard = () => {
                 </div>
                 <div className="text-center mt-4">
                   <h6 className="bg-light-alt py-3 px-2 mb-0">
-                    <i
-                      data-feather="calendar"
-                      className="align-self-center icon-xs me-1"
-                    ></i>
+                    <FiCalendar className="align-self-center icon-xs me-1" />
                     01 January 2021 to 31 December 2021
                   </h6>
                 </div>
@@ -318,7 +313,7 @@ const Dashboard = () => {
                 <div className="row">
                   <div className="col border-end">
                     <div className="d-flex justify-content-center align-items-center thumb-lg bg-soft-primary rounded-circle mx-auto">
-                      <i data-feather="facebook" className="align-self-center"></i>
+                      <FiFacebook className="align-self-center" />
                     </div>
                     <div className="text-center">
                       <h3 className="text-dark">184k</h3>
@@ -328,7 +323,7 @@ const Dashboard = () => {
 
                   <div className="col border-end">
                     <div className="d-flex justify-content-center align-items-center thumb-lg bg-soft-pink rounded-circle mx-auto">
-                      <i data-feather="instagram" className="align-self-center"></i>
+                      <FiInstagram className="align-self-center" />
                     </div>
                     <div className="text-center">
                       <h3 className="text-dark">184k</h3>
@@ -338,7 +333,7 @@ const Dashboard = () => {
 
                   <div className="col">
                     <div className="d-flex justify-content-center align-items-center thumb-lg bg-soft-info rounded-circle mx-auto">
-                      <i data-feather="twitter" className="align-self-center"></i>
+                      <FiTwitter className="align-self-center" />
                     </div>
                     <div className="text-center">
                       <h3 className="text-dark">101k</h3>
