@@ -5,6 +5,7 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { requestForgotPassword } from "@/lib/api/auth";
 import AuthLayout from "./AuthLayout";
+import { MdArrowBack } from "react-icons/md";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -33,35 +34,39 @@ export default function ForgotPasswordPage() {
 
   return (
     <>
+    <div className="forgotPassword">
+      <div className="backtoLogin"><Link href="#"><MdArrowBack />Back to Login</Link></div>
       {/* Header */}<AuthLayout>
       <div className="login-header">
-        <img src="/images/logologin.png" alt="Company Logo" />
+        <img src="/images/loginpage.png" alt="Company Logo" />
         <h2>Forgot Password</h2>
         <p>Enter your email to receive reset link</p>
       </div>
 
       {!sent ? (
         <form onSubmit={handleSubmit}>
+          <div className="form-controlbox">
+            <label htmlFor="Password" className="form-label">Email ID / Mobile</label>
           <input
             type="email"
-            placeholder="Email address"
+            placeholder="username@gmail.com"
             className="form-control"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-
+          </div>
+        <div className="forgotsend">
           <button
             type="submit"
-            className="btn-login"
+            className="btn-login sendReset"
             disabled={submitting}
           >
-            {submitting ? "Sending..." : "Send Email"}
+            {submitting ? "Sending..." : "Send Reset Code"}
           </button>
+        </div>
+          
 
-          <div className="forgot">
-            <Link href="/">← Back to Login</Link>
-          </div>
         </form>
       ) : (
         <div className="success-box">
@@ -76,6 +81,7 @@ export default function ForgotPasswordPage() {
         </div>
       )}
     </AuthLayout>
+    </div>
     </>
   );
 }
